@@ -21,7 +21,7 @@ const (
 )
 
 func (c *getProviderMock) GetButton(request button_domain.ButtonRequest, serviceURL string) (*button_domain.Button, *button_domain.ButtonError) {
-	return getServiceProviderFunc(request, googlePayUrl)
+	return getServiceProviderFunc(request, serviceURL)
 }
 
 func TestGooglePayServiceNoProductID(t *testing.T) {

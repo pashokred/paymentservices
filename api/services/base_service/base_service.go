@@ -9,9 +9,17 @@ import (
 	"paymentservices/api/services/stripe_service"
 )
 
+type baseService struct{}
+
+type baseServiceInterface interface {
+	GetButtons(input button_domain.ButtonRequest) ([]button_domain.Button, *button_domain.ButtonError)
+}
+
+var BaseService baseServiceInterface = &baseService{}
+
 var services = []string{"ApplePay", "GooglePay", "Stripe", "PayPal"}
 
-func GetButtons(input button_domain.ButtonRequest) ([]button_domain.Button, *button_domain.ButtonError) {
+func (b *baseService) GetButtons(input button_domain.ButtonRequest) ([]button_domain.Button, *button_domain.ButtonError) {
 	var buttons []button_domain.Button
 
 	var getButtonsHelper = func(s services2.PaymentServiceInterface) *button_domain.ButtonError {

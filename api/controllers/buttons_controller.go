@@ -20,7 +20,7 @@ func GetButtons(w http.ResponseWriter, r *http.Request) {
 		ProductID: vars["id"],
 	}
 	start := time.Now()
-	result, apiError := base_service.GetButtons(request)
+	result, apiError := base_service.BaseService.GetButtons(request)
 	w.Header().Set("X-Response-Time", strconv.FormatInt(int64(time.Since(start)), 10))
 	w.Header().Set("Content-Type", "application/json")
 

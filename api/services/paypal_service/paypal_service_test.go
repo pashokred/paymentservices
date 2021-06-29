@@ -17,13 +17,11 @@ type getProviderMock struct{}
 const (
 	appStoreLink   = "https://apps.apple.com/us/app/headway-self-growth-challenge/id1457185832"
 	googlePlayLink = "https://play.google.com/store/apps/details?id=com.headway.books&hl=en&gl=US"
-	resApplePayUrl = "https://api.applepay/15"
+	resPaypalURL   = "https://api.paypal/1234"
 )
 
-//TODO: Change links
-
 func (c *getProviderMock) GetButton(request button_domain.ButtonRequest, serviceURL string) (*button_domain.Button, *button_domain.ButtonError) {
-	return getServiceProviderFunc(request, paypalUrl)
+	return getServiceProviderFunc(request, serviceURL)
 }
 
 func TestApplePayServiceNoProductID(t *testing.T) {
@@ -49,17 +47,17 @@ func TestApplePayServiceNoProductID(t *testing.T) {
 func TestApplePayServiceSuccess(t *testing.T) {
 	getServiceProviderFunc = func(request button_domain.ButtonRequest, serviceURL string) (*button_domain.Button, *button_domain.ButtonError) {
 		return &button_domain.Button{
-			Link: "https://api.applepay/15",
+			Link: "https://api.paypal/1234",
 		}, nil
 	}
 
 	providers.ServiceProvider = &getProviderMock{}
 
 	request := button_domain.ButtonRequest{
-		ProductID: strconv.FormatInt(15, 10),
+		ProductID: strconv.FormatInt(1234, 10),
 	}
 	result, err := PaypalService.GetButton(request)
 	assert.Nil(t, err)
 	assert.NotNil(t, result)
-	assert.EqualValues(t, result.Link, resApplePayUrl)
+	assert.EqualValues(t, result.Link, resPaypalURL)
 }

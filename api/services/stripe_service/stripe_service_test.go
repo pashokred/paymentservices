@@ -20,10 +20,8 @@ const (
 	resApplePayUrl = "https://api.applepay/15"
 )
 
-//TODO: Change links
-
 func (c *getProviderMock) GetButton(request button_domain.ButtonRequest, serviceURL string) (*button_domain.Button, *button_domain.ButtonError) {
-	return getServiceProviderFunc(request, stripeUrl)
+	return getServiceProviderFunc(request, serviceURL)
 }
 
 func TestApplePayServiceNoProductID(t *testing.T) {
@@ -49,14 +47,14 @@ func TestApplePayServiceNoProductID(t *testing.T) {
 func TestApplePayServiceSuccess(t *testing.T) {
 	getServiceProviderFunc = func(request button_domain.ButtonRequest, serviceURL string) (*button_domain.Button, *button_domain.ButtonError) {
 		return &button_domain.Button{
-			Link: "https://api.applepay/15",
+			Link: "https://api.stripe/754",
 		}, nil
 	}
 
 	providers.ServiceProvider = &getProviderMock{}
 
 	request := button_domain.ButtonRequest{
-		ProductID: strconv.FormatInt(15, 10),
+		ProductID: strconv.FormatInt(754, 10),
 	}
 	result, err := StripeService.GetButton(request)
 	assert.Nil(t, err)
