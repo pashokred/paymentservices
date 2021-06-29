@@ -11,9 +11,16 @@ import (
 	"paymentservices/api/domain/button_domain"
 	"paymentservices/api/services/base_service"
 	"reflect"
+	"strconv"
 	"testing"
 )
 
+const (
+	Domain string = "http://127.0.0.1"
+	Port   int    = 3000
+)
+
+var appURL = Domain + ":" + strconv.FormatInt(int64(Port), 10)
 var getButtonsFunc func(input button_domain.ButtonRequest) ([]button_domain.Button, *button_domain.ButtonError)
 
 type baseServiceMock struct{}
@@ -32,7 +39,7 @@ func TestGetButtonsReturnStores(t *testing.T) {
 	ts := httptest.NewServer(http.HandlerFunc(GetButtons))
 	defer ts.Close()
 	t.Run("Invalid url", func(t *testing.T) {
-		response, err := http.Get("http://127.0.0.1:3000" + "/invalid")
+		response, err := http.Get(appURL + "/invalid")
 		if err != nil {
 			t.Errorf("Expected nil, received %s", err)
 		}
@@ -68,7 +75,7 @@ func TestGetButtonsSuccess(t *testing.T) {
 	r.HandleFunc("/products/{id}", GetButtons)
 	ts := httptest.NewServer(r)
 	defer ts.Close()
-	response, err := http.Get("http://127.0.0.1:3000" + "/products/5")
+	response, err := http.Get(appURL + "/products/5")
 	if err != nil {
 		t.Errorf("Expected not nil, received %s", err)
 	}

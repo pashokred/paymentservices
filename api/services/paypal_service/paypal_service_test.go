@@ -8,9 +8,7 @@ import (
 	"testing"
 )
 
-var (
-	getServiceProviderFunc func(request button_domain.ButtonRequest, serviceURL string) (*button_domain.Button, *button_domain.ButtonError)
-)
+var getServiceProviderFunc func(request button_domain.ButtonRequest, serviceURL string) (*button_domain.Button, *button_domain.ButtonError)
 
 type getProviderMock struct{}
 
@@ -31,7 +29,6 @@ func TestApplePayServiceNoProductID(t *testing.T) {
 			GooglePlayLink: googlePlayLink,
 		}
 	}
-
 	providers.ServiceProvider = &getProviderMock{}
 
 	request := button_domain.ButtonRequest{
@@ -50,7 +47,6 @@ func TestApplePayServiceSuccess(t *testing.T) {
 			Link: "https://api.paypal/1234",
 		}, nil
 	}
-
 	providers.ServiceProvider = &getProviderMock{}
 
 	request := button_domain.ButtonRequest{

@@ -47,18 +47,10 @@ func TestBaseServiceSuccess(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotNil(t, result)
 	want := []button_domain.Button{
-		{
-			Link: "https://applepay.api",
-		},
-		{
-			Link: "https://googlepay.api",
-		},
-		{
-			Link: "https://stripe.api",
-		},
-		{
-			Link: "https://paypal.api",
-		},
+		{Link: "https://applepay.api"},
+		{Link: "https://googlepay.api"},
+		{Link: "https://stripe.api"},
+		{Link: "https://paypal.api"},
 	}
 	assert.EqualValues(t, want, result)
 }
