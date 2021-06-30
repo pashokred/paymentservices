@@ -30,22 +30,22 @@ func (ci *clientStruct) Get(url string) (*http.Response, error) {
 	switch DigitPrefix(url) {
 	case applePayUrl:
 		return &http.Response{
-			Body:       ioutil.NopCloser(strings.NewReader(`{"Link": "https://applepay.api"}`)),
+			Body:       ioutil.NopCloser(strings.NewReader(`{"link": "https://applepay.api"}`)),
 			StatusCode: http.StatusOK,
 		}, nil
 	case googlePayUrl:
 		return &http.Response{
-			Body:       ioutil.NopCloser(strings.NewReader(`{"Link": "https://googlepay.api"}`)),
+			Body:       ioutil.NopCloser(strings.NewReader(`{"link": "https://googlepay.api"}`)),
 			StatusCode: http.StatusOK,
 		}, nil
 	case stripeUrl:
 		return &http.Response{
-			Body:       ioutil.NopCloser(strings.NewReader(`{"Link": "https://stripe.api"}`)),
+			Body:       ioutil.NopCloser(strings.NewReader(`{"link": "https://stripe.api"}`)),
 			StatusCode: http.StatusOK,
 		}, nil
 	case paypalUrl:
 		return &http.Response{
-			Body:       ioutil.NopCloser(strings.NewReader(`{"Link": "https://paypal.api"}`)),
+			Body:       ioutil.NopCloser(strings.NewReader(`{"link": "https://paypal.api"}`)),
 			StatusCode: http.StatusOK,
 		}, nil
 	default:
